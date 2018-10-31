@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://source/debug/Debug.gd" type="Script" id=1]
 [ext_resource path="res://source/global/TimeControl.gd" type="Script" id=2]
@@ -6,9 +6,13 @@
 [ext_resource path="res://source/mechanics/PlayerControl.tscn" type="PackedScene" id=4]
 [ext_resource path="res://source/world/World.gd" type="Script" id=5]
 [ext_resource path="res://icon.png" type="Texture" id=6]
-[ext_resource path="res://source/juice/Juice.gd" type="Script" id=7]
-[ext_resource path="res://source/ui/GameOverScreen.tscn" type="PackedScene" id=8]
-[ext_resource path="res://source/ui/PauseScreen.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/png/Square.png" type="Texture" id=7]
+[ext_resource path="res://source/feel/Juice.gd" type="Script" id=8]
+[ext_resource path="res://source/feel/ScreenFlash.tscn" type="PackedScene" id=9]
+[ext_resource path="res://source/feel/ScreenQuake.gd" type="Script" id=10]
+[ext_resource path="res://source/feel/ScreenShake.tscn" type="PackedScene" id=11]
+[ext_resource path="res://source/ui/GameOverScreen.tscn" type="PackedScene" id=12]
+[ext_resource path="res://source/ui/PauseScreen.tscn" type="PackedScene" id=13]
 
 [sub_resource type="Animation" id=1]
 
@@ -28,6 +32,48 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 99.3193, 544.541 ), Vector2( 1493.21, 520.568 ) ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath("../../Feel/ScreenFlash")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ Color( 1, 1, 1, 1 ) ],
+"method": "flash"
+} ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("../../Feel/ScreenQuake")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "shake_hard"
+} ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("../../Feel/ScreenShake")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ Vector2( -1, 0 ), null ],
+"method": "shake_to"
+} ]
+}
 
 [node name="Game" type="Node2D"]
 
@@ -39,21 +85,23 @@ enable = true
 pause_mode = 2
 script = ExtResource( 2 )
 _sections_unfolded = [ "Pause" ]
-slomo_time_scale = 0.1
+slomo_time_scale = 0.25
 
 [node name="Mechanics" type="Node2D" parent="."]
+editor/display_folded = true
 script = ExtResource( 3 )
 
 [node name="PlayerControl" parent="Mechanics" instance=ExtResource( 4 )]
 
-[node name="World" type="Node2D" parent="."]
+[node name="World" type="YSort" parent="."]
+sort_enabled = true
 script = ExtResource( 5 )
 
-[node name="Sprite" type="Sprite" parent="World"]
-position = Vector2( 109.739, 544.362 )
+[node name="Moving" type="Sprite" parent="World"]
+position = Vector2( 99.3193, 544.541 )
 texture = ExtResource( 6 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="World/Sprite"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="World/Moving"]
 root_node = NodePath("..")
 autoplay = "Swing"
 playback_process_mode = 1
@@ -63,8 +111,116 @@ anims/Swing = SubResource( 1 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
-[node name="Juice" type="Node2D" parent="."]
-script = ExtResource( 7 )
+[node name="Square" type="Sprite" parent="World"]
+position = Vector2( 791.124, 349.328 )
+texture = ExtResource( 7 )
+
+[node name="Camera" type="Camera2D" parent="World/Square"]
+position = Vector2( 7.25848, 11.9158 )
+anchor_mode = 1
+rotating = true
+current = true
+zoom = Vector2( 1, 1 )
+limit_left = -10000000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
+limit_smoothed = false
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = false
+smoothing_speed = 5.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.2
+drag_margin_top = 0.2
+drag_margin_right = 0.2
+drag_margin_bottom = 0.2
+editor_draw_screen = true
+editor_draw_limits = false
+editor_draw_drag_margin = false
+_sections_unfolded = [ "Transform" ]
+
+[node name="Feel" type="Node2D" parent="."]
+script = ExtResource( 8 )
+
+[node name="ScreenFlash" parent="Feel" instance=ExtResource( 9 )]
+
+[node name="ScreenQuake" type="Node2D" parent="Feel"]
+script = ExtResource( 10 )
+camera_node = NodePath("../../World/Square/Camera")
+light_trauma = 0.25
+moderate_trauma = 0.5
+heavy_trauma = 1
+trauma_power = 2
+trauma_decay = 1
+max_angle = 5.0
+max_offset = 10.0
+
+[node name="ScreenShake" parent="Feel" instance=ExtResource( 11 )]
+camera_path = NodePath("../../World/Square/Camera")
+duration = 0.2
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Feel"]
+position = Vector2( 377.732, 187.787 )
+scale = 0.5
+emitting = true
+amount = 8
+lifetime = 1.0
+one_shot = false
+preprocess = 0.0
+speed_scale = 1.0
+explosiveness = 0.0
+randomness = 0.0
+fixed_fps = 0
+fract_delta = true
+local_coords = true
+draw_order = 0
+texture = ExtResource( 6 )
+normalmap = null
+emission_shape = 0
+emission_points = PoolVector2Array(  )
+emission_colors = PoolColorArray(  )
+flag_align_y = false
+spread = 180.0
+flatness = 0.0
+gravity = Vector2( 0, 98.8 )
+initial_velocity = 100.0
+initial_velocity_random = 0.5
+angular_velocity = 0.0
+angular_velocity_random = 0.0
+angular_velocity_curve = null
+linear_accel = 0.0
+linear_accel_random = 0.0
+linear_accel_curve = null
+radial_accel = 0.0
+radial_accel_random = 0.0
+radial_accel_curve = null
+tangential_accel = 0.0
+tangential_accel_random = 0.0
+tangential_accel_curve = null
+damping = 0.0
+damping_random = 0.0
+damping_curve = null
+angle = 0.0
+angle_random = 0.0
+angle_curve = null
+scale = 0.5
+scale_random = 0.0
+scale_curve = null
+color = Color( 1, 1, 1, 1 )
+color_ramp = null
+hue_variation = 0.0
+hue_variation_random = 0.0
+hue_variation_curve = null
+anim_speed = 0.0
+anim_speed_random = 0.0
+anim_speed_curve = null
+anim_offset = 0.0
+anim_offset_random = 0.0
+anim_offset_curve = null
+anim_loop = false
+_sections_unfolded = [ "Drawing", "Initial Velocity", "Spread" ]
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 1
@@ -73,9 +229,9 @@ rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
-[node name="GameOverScreen" parent="UI" instance=ExtResource( 8 )]
+[node name="GameOverScreen" parent="UI" instance=ExtResource( 12 )]
 visible = false
 
-[node name="PauseScreen" parent="UI" instance=ExtResource( 9 )]
+[node name="PauseScreen" parent="UI" instance=ExtResource( 13 )]
 visible = false
 

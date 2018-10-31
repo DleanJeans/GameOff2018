@@ -10,6 +10,26 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
+"class": "Const",
+"language": "GDScript",
+"path": "res://source/global/Const.gd"
+}, {
+"base": "Node",
+"class": "Direction",
+"language": "GDScript",
+"path": "res://source/global/Direction.gd"
+}, {
+"base": "Node2D",
+"class": "ScreenQuake",
+"language": "GDScript",
+"path": "res://source/feel/ScreenQuake.gd"
+}, {
+"base": "Node2D",
+"class": "Seek",
+"language": "GDScript",
+"path": "res://source/ai/steering/Seek.gd"
+}, {
+"base": "Reference",
 "class": "Simplex",
 "language": "GDScript",
 "path": "res://source/global/Simplex.gd"
@@ -20,13 +40,12 @@ _global_script_classes=[ {
 "path": "res://source/global/TimeControl.gd"
 } ]
 _global_script_class_icons={
-"Debug": "",
-"GameOverScreen": "",
-"PauseScreen": "",
-"Random": "",
+"Const": "",
+"Direction": "",
+"ScreenQuake": "",
+"Seek": "",
 "Simplex": "",
-"TimeControl": "",
-"debug": ""
+"TimeControl": ""
 }
 
 [application]
