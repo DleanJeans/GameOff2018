@@ -16,16 +16,13 @@ var pressed_jump = false
 func can_jump():
 	return $JumpPad.get_overlapping_bodies().size() > 0
 
-func jump():
-	if jumping:
-		velocity.y = -kind.jump_speed
-
 func start_jumping():
 	if parent.is_on_floor() or kind.can_fly():
 		if velocity.y > 0:
 			velocity.y = -kind.jump_speed
 		jumping = true
 		$JumpTimer.start(time_to_jump_apex)
+		parent.emit_signal('jumped')
 	elif can_jump():
 		pressed_jump = true
 
@@ -68,6 +65,10 @@ func _physics_process(delta):
 func _clamp_velocity_x():
 	var max_speed = parent.get_max_speed()
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
+
+func _apply_jump_if_pressed():
+	if jumping:
+		velocity.y = -kind.jump_speed
 
 func _apply_velocity():
 	parent.move_and_slide(velocity, Direction.UP)

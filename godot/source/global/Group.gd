@@ -1,9 +1,10 @@
 extends Node
 
-const GUNNERS = 'Gunners'
-const GUN_SPAWNERS = 'GunSpawners'
-const SPAWN_ZONES = 'SpawnZones'
-const INVISIBLE_WALLS = 'InvisibleWalls'
+const ANIMALS = 'Animals'
+const FINISH_LINE = 'FinishLine'
 
 func get_nodes(group:String):
 	return get_tree().get_nodes_in_group(group)
+
+func get_first_node(group:String):
+	return get_nodes(group)[0]

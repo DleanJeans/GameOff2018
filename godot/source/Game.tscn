@@ -1,16 +1,21 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://source/Game.gd" type="Script" id=1]
 [ext_resource path="res://source/debug/Debug.gd" type="Script" id=2]
-[ext_resource path="res://source/global/TimeControl.gd" type="Script" id=3]
-[ext_resource path="res://source/mechanics/Mechanics.gd" type="Script" id=4]
-[ext_resource path="res://source/mechanics/PlayerControl.gd" type="Script" id=5]
-[ext_resource path="res://source/world/World.gd" type="Script" id=6]
-[ext_resource path="res://source/world/Land.tscn" type="PackedScene" id=7]
-[ext_resource path="res://source/world/animal/Animal.tscn" type="PackedScene" id=8]
-[ext_resource path="res://source/feel/Juice.gd" type="Script" id=9]
-[ext_resource path="res://source/ui/GameOverScreen.tscn" type="PackedScene" id=10]
-[ext_resource path="res://source/ui/PauseScreen.tscn" type="PackedScene" id=11]
+[ext_resource path="res://source/mechanics/Mechanics.gd" type="Script" id=3]
+[ext_resource path="res://source/mechanics/PlayerControl.gd" type="Script" id=4]
+[ext_resource path="res://source/mechanics/Winning.gd" type="Script" id=5]
+[ext_resource path="res://source/mechanics/TimeControl.gd" type="Script" id=6]
+[ext_resource path="res://source/mechanics/Countdown.gd" type="Script" id=7]
+[ext_resource path="res://source/world/World.gd" type="Script" id=8]
+[ext_resource path="res://source/world/Land.tscn" type="PackedScene" id=9]
+[ext_resource path="res://source/world/animal/Animal.tscn" type="PackedScene" id=10]
+[ext_resource path="res://source/world/FinishLine.tscn" type="PackedScene" id=11]
+[ext_resource path="res://source/world/RaceLineSprite.tscn" type="PackedScene" id=12]
+[ext_resource path="res://source/feel/Juice.gd" type="Script" id=13]
+[ext_resource path="res://source/ui/GameOverScreen.tscn" type="PackedScene" id=14]
+[ext_resource path="res://source/ui/PauseScreen.tscn" type="PackedScene" id=15]
+[ext_resource path="res://source/ui/CountdownLabel.tscn" type="PackedScene" id=16]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -19,43 +24,76 @@ script = ExtResource( 1 )
 script = ExtResource( 2 )
 enable = true
 
-[node name="TimeControl" type="Node2D" parent="Debug"]
-pause_mode = 2
-script = ExtResource( 3 )
-slomo_time_scale = 0.25
-
 [node name="Mechanics" type="Node2D" parent="."]
-script = ExtResource( 4 )
+script = ExtResource( 3 )
 
 [node name="PlayerControl" type="Node2D" parent="Mechanics"]
-script = ExtResource( 5 )
+pause_mode = 2
+script = ExtResource( 4 )
 enabled = false
+
+[node name="Winning" type="Node2D" parent="Mechanics"]
+script = ExtResource( 5 )
+
+[node name="TimeControl" type="Node2D" parent="Mechanics"]
+script = ExtResource( 6 )
+slomo_time_scale = 0.25
+
+[node name="Countdown" type="Timer" parent="Mechanics"]
+pause_mode = 2
+process_mode = 1
+wait_time = 3.0
+one_shot = true
+autostart = false
+script = ExtResource( 7 )
 
 [node name="World" type="YSort" parent="."]
 sort_enabled = true
-script = ExtResource( 6 )
+script = ExtResource( 8 )
 
-[node name="Land" parent="World" instance=ExtResource( 7 )]
-position = Vector2( 800, 700 )
+[node name="Land" parent="World" instance=ExtResource( 9 )]
+position = Vector2( 800, 500 )
 scale = Vector2( 16, 4 )
 
-[node name="Animal" parent="World" instance=ExtResource( 8 )]
-modulate = Color( 1, 0.309804, 0.196078, 1 )
-position = Vector2( 690, 390 )
+[node name="Red" parent="World" instance=ExtResource( 10 )]
+modulate = Color( 1, 0.333333, 0.196078, 1 )
+position = Vector2( 300, 480 )
+
+[node name="Blue" parent="World" instance=ExtResource( 10 )]
+modulate = Color( 0.196078, 0.733333, 1, 1 )
+position = Vector2( 220, 480 )
+
+[node name="Green" parent="World" instance=ExtResource( 10 )]
+modulate = Color( 0, 1, 0.333333, 1 )
+position = Vector2( 140, 480 )
+
+[node name="Yellow" parent="World" instance=ExtResource( 10 )]
+modulate = Color( 1, 0.866667, 0.196078, 1 )
+position = Vector2( 60, 480 )
+
+[node name="FinishLine" parent="World" instance=ExtResource( 11 )]
+position = Vector2( 1420, 525 )
+
+[node name="RaceLineSprite" parent="World" instance=ExtResource( 12 )]
+position = Vector2( 380, 525 )
 
 [node name="Feel" type="Node2D" parent="."]
-script = ExtResource( 9 )
+script = ExtResource( 13 )
 
 [node name="UI" type="CanvasLayer" parent="."]
+pause_mode = 2
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
-[node name="GameOverScreen" parent="UI" instance=ExtResource( 10 )]
+[node name="GameOverScreen" parent="UI" instance=ExtResource( 14 )]
 visible = false
 
-[node name="PauseScreen" parent="UI" instance=ExtResource( 11 )]
+[node name="PauseScreen" parent="UI" instance=ExtResource( 15 )]
+visible = false
+
+[node name="CountdownLabel" parent="UI" instance=ExtResource( 16 )]
 visible = false
 

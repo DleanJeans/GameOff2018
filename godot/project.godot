@@ -30,14 +30,14 @@ _global_script_classes=[ {
 "path": "res://source/global/Direction.gd"
 }, {
 "base": "Node2D",
+"class": "FinishLine",
+"language": "GDScript",
+"path": "res://source/world/FinishLine.gd"
+}, {
+"base": "Node2D",
 "class": "ScreenQuake",
 "language": "GDScript",
 "path": "res://source/feel/ScreenQuake.gd"
-}, {
-"base": "Node2D",
-"class": "Seek",
-"language": "GDScript",
-"path": "res://source/ai/steering/Seek.gd"
 }, {
 "base": "Reference",
 "class": "Simplex",
@@ -47,15 +47,15 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "TimeControl",
 "language": "GDScript",
-"path": "res://source/global/TimeControl.gd"
+"path": "res://source/mechanics/TimeControl.gd"
 } ]
 _global_script_class_icons={
 "Animal": "",
 "AnimalKind": "",
 "Const": "",
 "Direction": "",
+"FinishLine": "",
 "ScreenQuake": "",
-"Seek": "",
 "Simplex": "",
 "TimeControl": ""
 }
@@ -70,6 +70,8 @@ config/icon="res://icon.png"
 
 GameData="*res://source/global/GameData.gd"
 Random="*res://source/global/Random.gd"
+Group="*res://source/global/Group.gd"
+Scenes="*res://source/global/Scenes.gd"
 
 [debug]
 

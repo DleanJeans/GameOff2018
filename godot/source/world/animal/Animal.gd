@@ -1,6 +1,8 @@
 class_name Animal
 extends KinematicBody2D
 
+signal jumped
+
 var velocity = Vector2() setget set_velocity, get_velocity
 var kind = AnimalKind.new()
 
@@ -12,9 +14,6 @@ func get_velocity():
 
 func get_max_speed():
 	return kind.land_speed
-
-func jump():
-	$Movement.jump()
 
 func start_jumping():
 	$Movement.start_jumping()
