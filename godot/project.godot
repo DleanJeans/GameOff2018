@@ -34,6 +34,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/world/FinishLine.gd"
 }, {
+"base": "Area2D",
+"class": "JumpPad",
+"language": "GDScript",
+"path": "res://source/world/JumpPad.gd"
+}, {
+"base": "Node2D",
+"class": "RespawnSequence",
+"language": "GDScript",
+"path": "res://source/mechanics/RespawnSequence.gd"
+}, {
 "base": "Node2D",
 "class": "ScreenQuake",
 "language": "GDScript",
@@ -55,6 +65,8 @@ _global_script_class_icons={
 "Const": "",
 "Direction": "",
 "FinishLine": "",
+"JumpPad": "",
+"RespawnSequence": "",
 "ScreenQuake": "",
 "Simplex": "",
 "TimeControl": ""
@@ -140,6 +152,7 @@ pause={
 2d_physics/layer_1="Animals"
 2d_physics/layer_2="Lands"
 2d_physics/layer_3="Water"
+2d_physics/layer_11="JumpPads"
 
 [rendering]
 

@@ -2,6 +2,9 @@ class_name Animal
 extends KinematicBody2D
 
 signal jumped
+signal respawned
+
+onready var ground_detector:Area2D = $Movement/GroundDetector
 
 var velocity = Vector2() setget set_velocity, get_velocity
 var kind = AnimalKind.new()

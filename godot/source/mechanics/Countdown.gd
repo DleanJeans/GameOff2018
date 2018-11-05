@@ -1,10 +1,15 @@
 extends Timer
 
+export(bool) var debug_disabled = false
+
 signal started_one_sec(sec)
 
 var wait
 
 func _ready():
+	if debug_disabled:
+		wait_time = 1
+	
 	start(wait_time + 1)
 	
 	while time_left > 0:

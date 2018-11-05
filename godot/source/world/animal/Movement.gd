@@ -12,13 +12,16 @@ var velocity = Vector2()
 var jumping = false
 var moving_x = false
 var pressed_jump = false
+var was_on_floor = false
 
 func can_jump():
-	return $JumpPad.get_overlapping_bodies().size() > 0
+	return $GroundDetector.get_overlapping_bodies().size() > 0
 
 func start_jumping():
-	if parent.is_on_floor() or kind.can_fly():
-		if velocity.y > 0:
+	if parent.has_meta('frozen'): return
+	
+	if parent.is_on_floor() or $OnFloorTimer.time_left > 0:
+		if velocity.y >= 0:
 			velocity.y = -kind.jump_speed
 		jumping = true
 		$JumpTimer.start(time_to_jump_apex)
@@ -61,6 +64,13 @@ func _physics_process(delta):
 		parent.position.x = 1600
 	elif parent.position.x > 1600:
 		parent.position.x = 0
+	
+	if not parent.is_on_floor() and was_on_floor:
+		$OnFloorTimer.start()
+	elif not was_on_floor and parent.is_on_floor():
+		velocity.y = 0
+	
+	was_on_floor = parent.is_on_floor()
 
 func _clamp_velocity_x():
 	var max_speed = parent.get_max_speed()
