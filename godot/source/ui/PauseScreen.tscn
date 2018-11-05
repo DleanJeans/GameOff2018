@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://source/ui/PauseScreen.gd" type="Script" id=1]
 [ext_resource path="res://source/ui/FullscreenButton.tscn" type="PackedScene" id=2]
@@ -44,7 +44,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 10, -108 ), Vector2( 10, 10 ) ]
+"values": [ Vector2( 1321, -117 ), Vector2( 1320, 0 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("PauseIcon/Rect1:rect_position")
@@ -83,6 +83,62 @@ tracks/5/keys = {
 "values": [ false, true, true ]
 }
 
+[sub_resource type="StyleBoxFlat" id=5]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
+bg_color = Color( 1, 1, 1, 0.5 )
+draw_center = true
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+border_color = Color( 0.8, 0.8, 0.8, 1 )
+border_blend = false
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+corner_detail = 8
+expand_margin_left = 0.0
+expand_margin_right = 0.0
+expand_margin_top = 0.0
+expand_margin_bottom = 0.0
+shadow_color = Color( 0, 0, 0, 0.6 )
+shadow_size = 0
+anti_aliasing = true
+anti_aliasing_size = 1
+
+[sub_resource type="StyleBoxFlat" id=6]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
+bg_color = Color( 1, 1, 1, 0.25 )
+draw_center = true
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+border_color = Color( 0.8, 0.8, 0.8, 1 )
+border_blend = false
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+corner_detail = 8
+expand_margin_left = 0.0
+expand_margin_right = 0.0
+expand_margin_top = 0.0
+expand_margin_bottom = 0.0
+shadow_color = Color( 0, 0, 0, 0.6 )
+shadow_size = 0
+anti_aliasing = true
+anti_aliasing_size = 1
+
 [sub_resource type="DynamicFont" id=2]
 
 size = 60
@@ -91,7 +147,6 @@ outline_color = Color( 1, 1, 1, 1 )
 use_mipmaps = false
 use_filter = false
 font_data = ExtResource( 3 )
-_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
 [sub_resource type="InputEventKey" id=3]
 
@@ -123,8 +178,6 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 script = ExtResource( 1 )
-_sections_unfolded = [ "Grow Direction", "Pause", "Visibility" ]
-title_screen_path = null
 pause_when_lost_focus = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -135,7 +188,6 @@ playback_default_blend_time = 0.0
 playback_speed = 1.5
 anims/Pause = SubResource( 1 )
 blend_times = [  ]
-_sections_unfolded = [ "Playback Options" ]
 
 [node name="Panel" type="Panel" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -149,7 +201,6 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-_sections_unfolded = [ "Visibility" ]
 
 [node name="PauseIcon" type="Control" parent="."]
 editor/display_folded = true
@@ -167,7 +218,6 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-_sections_unfolded = [ "Rect" ]
 
 [node name="Rect1" type="ColorRect" parent="PauseIcon"]
 anchor_left = 0.0
@@ -184,7 +234,6 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 color = Color( 1, 1, 1, 1 )
-_sections_unfolded = [ "Rect" ]
 
 [node name="Rect2" type="ColorRect" parent="PauseIcon"]
 anchor_left = 0.0
@@ -201,14 +250,12 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 color = Color( 1, 1, 1, 1 )
-_sections_unfolded = [ "Rect" ]
 
 [node name="FullscreenButton" parent="." instance=ExtResource( 2 )]
-margin_left = 10.0
-margin_top = -108.0
-margin_right = 280.0
-margin_bottom = -40.0
-_sections_unfolded = [ "Rect", "custom_fonts", "custom_fonts/font" ]
+margin_left = -279.0
+margin_top = -117.0
+margin_right = 1.0
+margin_bottom = -37.0
 
 [node name="Buttons" type="VBoxContainer" parent="."]
 anchor_left = 0.5
@@ -227,7 +274,6 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 alignment = 1
-_sections_unfolded = [ "Margin", "Rect" ]
 
 [node name="Resume" type="Button" parent="Buttons"]
 anchor_left = 0.0
@@ -241,9 +287,11 @@ rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
 mouse_filter = 0
-mouse_default_cursor_shape = 0
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 6 )
 custom_fonts/font = SubResource( 2 )
 toggle_mode = false
 enabled_focus_mode = 2
@@ -252,7 +300,6 @@ group = null
 text = "Resume"
 flat = true
 align = 1
-_sections_unfolded = [ "custom_fonts", "custom_fonts/font" ]
 
 [node name="Restart" type="Button" parent="Buttons"]
 anchor_left = 0.0
@@ -266,9 +313,11 @@ rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
 mouse_filter = 0
-mouse_default_cursor_shape = 0
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 6 )
 custom_fonts/font = SubResource( 2 )
 toggle_mode = false
 enabled_focus_mode = 2
@@ -277,7 +326,6 @@ group = null
 text = "Restart"
 flat = true
 align = 1
-_sections_unfolded = [ "custom_fonts" ]
 
 [node name="Quit" type="Button" parent="Buttons"]
 anchor_left = 0.0
@@ -291,9 +339,11 @@ rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
 mouse_filter = 0
-mouse_default_cursor_shape = 0
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 6 )
 custom_fonts/font = SubResource( 2 )
 toggle_mode = false
 enabled_focus_mode = 2
@@ -302,7 +352,6 @@ group = null
 text = "Quit"
 flat = true
 align = 1
-_sections_unfolded = [ "custom_fonts" ]
 
 [connection signal="pressed" from="Buttons/Resume" to="." method="unpause"]
 [connection signal="pressed" from="Buttons/Restart" to="." method="restart_game"]

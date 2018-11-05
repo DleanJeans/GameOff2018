@@ -10,11 +10,14 @@ outline_color = Color( 1, 1, 1, 1 )
 use_mipmaps = false
 use_filter = false
 font_data = ExtResource( 1 )
-_sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="GDScript" id=2]
 
 script/source = "extends Button
+
+func _ready():
+	if OS.get_name() == 'HTML5':
+		$Shortcut.text = 'Click Here'
 
 func _pressed():
 	OS.window_fullscreen = not OS.window_fullscreen
@@ -25,26 +28,26 @@ func _process(delta):
 
 [sub_resource type="DynamicFont" id=3]
 
-size = 20
+size = 25
 outline_size = 0
 outline_color = Color( 1, 1, 1, 1 )
 use_mipmaps = false
 use_filter = false
 font_data = ExtResource( 1 )
-_sections_unfolded = [ "Font", "Settings" ]
 
 [node name="FullscreenButton" type="Button"]
-anchor_left = 0.0
+anchor_left = 1.0
 anchor_top = 0.0
-anchor_right = 0.0
+anchor_right = 1.0
 anchor_bottom = 0.0
-margin_right = 270.0
-margin_bottom = 68.0
+margin_left = -280.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 280, 80 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
 mouse_filter = 0
-mouse_default_cursor_shape = 0
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 1 )
@@ -56,15 +59,14 @@ text = "Fullscreen"
 flat = true
 align = 1
 script = SubResource( 2 )
-_sections_unfolded = [ "custom_fonts", "custom_fonts/font" ]
 
 [node name="Shortcut" type="Label" parent="."]
 anchor_left = 0.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -22.0
-margin_bottom = 13.0
+margin_top = -16.0
+margin_bottom = 19.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -72,11 +74,10 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 3 )
-text = "Ctrl + Enter"
+text = "F11 | Ctrl + Enter"
 align = 1
 valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts", "custom_fonts/font" ]
 

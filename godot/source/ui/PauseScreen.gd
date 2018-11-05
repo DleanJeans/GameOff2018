@@ -1,7 +1,5 @@
 extends Control
 
-export(PackedScene) var title_screen_path:PackedScene
-
 signal paused
 signal unpaused
 signal unpausing
